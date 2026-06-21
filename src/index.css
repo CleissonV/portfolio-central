@@ -1,0 +1,41 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: #080808; color: #fafafa; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
+
+@keyframes gradMove {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track { animation: marquee 30s linear infinite; }
+
+.gradient-text {
+  background: linear-gradient(135deg, #a78bfa, #38bdf8, #34d399, #a78bfa);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradMove 6s ease infinite;
+}
+
+.project-card {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border: 1px solid #1a1a1a;
+}
+.project-card:hover {
+  transform: translateY(-8px);
+  border-color: #333;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+}
+.project-card:hover .card-preview { transform: scale(1.04); }
+.card-preview { transition: transform 0.6s ease; }
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: #080808; }
+::-webkit-scrollbar-thumb { background: #a78bfa; border-radius: 2px; }
