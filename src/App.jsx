@@ -7,6 +7,7 @@ const projects = [
     id: 1,
     name: 'Ferreira & Associados',
     slug: 'lp-advogado',
+    demo: 'https://lp-advogado-opal.vercel.app',
     type: 'Landing Page',
     segment: 'Advocacia',
     desc: 'Escritório de advocacia premium. Partículas douradas animadas, design elegante dark com acentos em gold.',
@@ -20,6 +21,7 @@ const projects = [
     id: 2,
     name: 'Sorriso Perfeito',
     slug: 'lp-dentista',
+    demo: 'https://lp-dentista-gules.vercel.app',
     type: 'Landing Page',
     segment: 'Odontologia',
     desc: 'Clínica odontológica moderna. Blobs animados, agendamento online, paleta azul clean e profissional.',
@@ -33,6 +35,7 @@ const projects = [
     id: 3,
     name: 'Dark Ink Studio',
     slug: 'lp-tatuador',
+    demo: 'https://lp-tatuador.vercel.app',
     type: 'Landing Page',
     segment: 'Tatuagem',
     desc: 'Estúdio de tatuagem underground premium. Efeito glitch, noise texture, tipografia bold impactante.',
@@ -46,6 +49,7 @@ const projects = [
     id: 4,
     name: 'NexusAI',
     slug: 'site-tech-startup',
+    demo: 'https://site-tech-startup.vercel.app',
     type: 'Site Institucional',
     segment: 'Tecnologia / IA',
     desc: 'Startup de IA futurista. Canvas particles animado, typewriter effect, glassmorphism, código mockup.',
@@ -59,6 +63,7 @@ const projects = [
     id: 5,
     name: 'Alma Gastronomia',
     slug: 'lp-restaurante',
+    demo: 'https://lp-restaurante-ten.vercel.app',
     type: 'Landing Page',
     segment: 'Restaurante',
     desc: 'Restaurante Michelin star. Chamas de vela animadas em SVG, cardápio interativo com tabs, parallax.',
@@ -72,6 +77,7 @@ const projects = [
     id: 6,
     name: 'APEX Training',
     slug: 'lp-academia',
+    demo: 'https://lp-academia-pearl.vercel.app',
     type: 'Landing Page',
     segment: 'Academia / Fitness',
     desc: 'Academia elite. Contadores animados com easing cúbico, grid pattern, tipografia bold impactante.',
@@ -85,6 +91,7 @@ const projects = [
     id: 7,
     name: 'Prestige Imóveis',
     slug: 'site-imobiliaria',
+    demo: 'https://site-imobiliaria-psi.vercel.app',
     type: 'Site Institucional',
     segment: 'Imobiliária',
     desc: 'Imobiliária de alto padrão. Gold shimmer, filtro de imóveis por tipo, search bar hero, cards premium.',
@@ -98,6 +105,7 @@ const projects = [
     id: 8,
     name: 'FluxCRM',
     slug: 'lp-saas',
+    demo: 'https://lp-saas-ivory.vercel.app',
     type: 'Landing Page SaaS',
     segment: 'Software B2B',
     desc: 'CRM SaaS moderno. Orbs animados, dashboard mockup, FAQ accordion, glassmorphism, pricing tiers.',
@@ -111,6 +119,7 @@ const projects = [
     id: 9,
     name: 'LUMIÈRE',
     slug: 'lp-ecommerce-moda',
+    demo: 'https://lp-ecommerce-moda.vercel.app',
     type: 'E-commerce',
     segment: 'Moda Feminina',
     desc: 'Boutique de moda luxury. Editorial split layout, product grid com wishlist, marquee, newsletter.',
@@ -124,6 +133,7 @@ const projects = [
     id: 10,
     name: 'ORBIT Agency',
     slug: 'site-agencia-marketing',
+    demo: 'https://site-agencia-marketing-woad.vercel.app',
     type: 'Site Agência',
     segment: 'Marketing Digital',
     desc: 'Agência de marketing bold. Stroke typography, dual marquee, cases grid, contact form completo.',
@@ -169,9 +179,15 @@ const ProjectCard = ({ project, index }) => {
           >
             <FaGithub size={14} /> GitHub
           </a>
-          <button className="flex items-center gap-2 px-4 py-2 text-white text-xs font-semibold rounded-lg border border-white/30 hover:bg-white/10 transition-colors">
+          <a
+            href={project.demo}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 px-4 py-2 text-white text-xs font-semibold rounded-lg border border-white/30 hover:bg-white/10 transition-colors"
+            onClick={e => e.stopPropagation()}
+          >
             <FaExternalLinkAlt size={12} /> Demo
-          </button>
+          </a>
         </div>
         {/* Type badge */}
         <div className="absolute top-3 left-3">
@@ -193,9 +209,9 @@ const ProjectCard = ({ project, index }) => {
             <a href={`https://github.com/CleissonV/${project.slug}`} target="_blank" rel="noreferrer" className="text-gray-600 hover:text-white transition-colors">
               <FaGithub size={16} />
             </a>
-            <button className="text-gray-600 hover:text-white transition-colors">
+            <a href={project.demo} target="_blank" rel="noreferrer" className="text-gray-600 hover:text-white transition-colors">
               <FaExternalLinkAlt size={14} />
-            </button>
+            </a>
           </div>
         </div>
         <p className="text-gray-500 text-sm leading-relaxed mb-4">{project.desc}</p>
