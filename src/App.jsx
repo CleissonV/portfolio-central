@@ -139,16 +139,16 @@ const projects = [
 const segments = ['Todos', 'Advocacia', 'Odontologia', 'Tatuagem', 'Tecnologia / IA', 'Restaurante', 'Academia / Fitness', 'Imobiliária', 'Software B2B', 'Moda Feminina', 'Marketing Digital']
 
 const thumbs = {
-  'lp-advogado': 'https://images.unsplash.com/photo-1674826272758-e5c26d177cf2?w=800&q=80&auto=format&fit=crop',
+  'lp-advogado': 'https://images.unsplash.com/photo-1505663912202-ac22d4cb3707?w=800&q=80&auto=format&fit=crop',
   'lp-dentista': 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80&auto=format&fit=crop',
-  'lp-tatuador': 'https://images.unsplash.com/photo-1661714220704-711551e73799?w=800&q=80&auto=format&fit=crop',
+  'lp-tatuador': 'https://images.unsplash.com/photo-1542856391-010fb87dcfed?w=800&q=80&auto=format&fit=crop',
   'site-tech-startup': 'https://images.unsplash.com/photo-1677442135136-760c813028c0?w=800&q=80&auto=format&fit=crop',
   'lp-restaurante': 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80&auto=format&fit=crop',
   'lp-academia': 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80&auto=format&fit=crop',
   'site-imobiliaria': 'https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=800&q=80&auto=format&fit=crop',
   'lp-saas': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop',
-  'lp-ecommerce-moda': 'https://images.unsplash.com/photo-1675186049419-d48f4b28fe7c?w=800&q=80&auto=format&fit=crop',
-  'site-agencia-marketing': 'https://images.unsplash.com/photo-1726804880693-8fcdd773ce80?w=800&q=80&auto=format&fit=crop',
+  'lp-ecommerce-moda': 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80&auto=format&fit=crop',
+  'site-agencia-marketing': 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80&auto=format&fit=crop',
 }
 
 const ProjectCard = ({ project, index }) => {
