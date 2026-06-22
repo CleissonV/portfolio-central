@@ -266,10 +266,22 @@ export default function App() {
       {/* Nav */}
       <nav className="fixed w-full z-40 bg-[#080808]/90 backdrop-blur-xl border-b border-[#1a1a1a] py-4">
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <div>
-            <span className="font-black text-xl text-white">dev</span>
-            <span className="font-black text-xl gradient-text">portfolio</span>
-            <span className="font-black text-xl text-white">.</span>
+          <div className="flex items-center gap-2.5">
+            <svg viewBox="0 0 32 32" className="w-6 h-6" fill="none">
+              <defs>
+                <linearGradient id="navlogo" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stopColor="#a78bfa" /><stop offset="0.5" stopColor="#38bdf8" /><stop offset="1" stopColor="#34d399" />
+                </linearGradient>
+              </defs>
+              <path d="M16 5l11 6-11 6-11-6z" fill="url(#navlogo)" />
+              <path d="M5 16l11 6 11-6" stroke="url(#navlogo)" strokeWidth="1.8" strokeLinejoin="round" opacity="0.7" />
+              <path d="M5 21l11 6 11-6" stroke="url(#navlogo)" strokeWidth="1.8" strokeLinejoin="round" opacity="0.45" />
+            </svg>
+            <div>
+              <span className="font-black text-xl text-white">dev</span>
+              <span className="font-black text-xl gradient-text">portfolio</span>
+              <span className="font-black text-xl text-white">.</span>
+            </div>
           </div>
           <div className="flex items-center gap-6">
             <a href="https://wa.me/55SEUNUMERO" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-gray-400 hover:text-green-400 transition-colors">
