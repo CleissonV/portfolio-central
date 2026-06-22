@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { FaGithub, FaExternalLinkAlt, FaWhatsapp, FaInstagram, FaLinkedin, FaCode, FaLayerGroup, FaRocket } from 'react-icons/fa'
+import { SiReact, SiVite, SiTailwindcss, SiFramer, SiNodedotjs, SiExpress, SiPrisma, SiVercel } from 'react-icons/si'
 
 const projects = [
   {
@@ -14,7 +15,6 @@ const projects = [
     tags: ['React', 'Framer Motion', 'Tailwind'],
     color: '#c9a84c',
     bg: 'from-[#1a0a0a] to-[#0a0505]',
-    emoji: '⚖️',
     features: ['Partículas animadas', 'Parallax hero', 'Formulário contato', 'Mobile responsive'],
   },
   {
@@ -28,7 +28,6 @@ const projects = [
     tags: ['React', 'Framer Motion', 'Tailwind'],
     color: '#00b4d8',
     bg: 'from-[#0a1628] to-[#0f2545]',
-    emoji: '🦷',
     features: ['Blob morphing CSS', 'Agendamento form', 'Team cards', 'Pulse button'],
   },
   {
@@ -42,7 +41,6 @@ const projects = [
     tags: ['React', 'Framer Motion', 'Tailwind'],
     color: '#e63946',
     bg: 'from-[#1a0505] to-[#050505]',
-    emoji: '🖤',
     features: ['Glitch effect CSS', 'Noise texture', 'Gallery grid', 'Parallax hero'],
   },
   {
@@ -56,7 +54,6 @@ const projects = [
     tags: ['React', 'Canvas API', 'Framer Motion'],
     color: '#7c3aed',
     bg: 'from-[#1a0f3a] to-[#03040f]',
-    emoji: '🤖',
     features: ['Canvas particles', 'Typewriter effect', 'Scan line CSS', 'Dashboard mockup'],
   },
   {
@@ -70,7 +67,6 @@ const projects = [
     tags: ['React', 'Framer Motion', 'Tailwind'],
     color: '#c8902a',
     bg: 'from-[#2a1505] to-[#0d0700]',
-    emoji: '🍽️',
     features: ['Candle SVG animation', 'Menu tabs', 'Parallax hero', 'Reservation form'],
   },
   {
@@ -84,7 +80,6 @@ const projects = [
     tags: ['React', 'Framer Motion', 'Tailwind'],
     color: '#ef233c',
     bg: 'from-[#1a0505] to-[#050505]',
-    emoji: '💪',
     features: ['Counter animation', 'Fire gradient', 'Programs grid', 'Pricing cards'],
   },
   {
@@ -98,7 +93,6 @@ const projects = [
     tags: ['React', 'Framer Motion', 'Tailwind'],
     color: '#b8860b',
     bg: 'from-[#2a1a08] to-[#1a1208]',
-    emoji: '🏡',
     features: ['Property filter', 'Gold shimmer', 'Search hero', 'Dark services section'],
   },
   {
@@ -112,7 +106,6 @@ const projects = [
     tags: ['React', 'Framer Motion', 'Tailwind'],
     color: '#8b5cf6',
     bg: 'from-[#1e1335] to-[#0f172a]',
-    emoji: '📊',
     features: ['Animated orbs', 'Dashboard mockup', 'FAQ accordion', 'Gradient pricing'],
   },
   {
@@ -126,7 +119,6 @@ const projects = [
     tags: ['React', 'Framer Motion', 'Tailwind'],
     color: '#9a8c6e',
     bg: 'from-[#2a1a0a] to-[#1a0e05]',
-    emoji: '👗',
     features: ['Editorial hero', 'Product grid', 'Wishlist toggle', 'Marquee strip'],
   },
   {
@@ -140,12 +132,24 @@ const projects = [
     tags: ['React', 'Framer Motion', 'Tailwind'],
     color: '#ff6b35',
     bg: 'from-[#1a0a00] to-[#0a0a0a]',
-    emoji: '🚀',
     features: ['Stroke typography', 'Dual marquee', 'Cases hover', 'Process steps'],
   },
 ]
 
 const segments = ['Todos', 'Advocacia', 'Odontologia', 'Tatuagem', 'Tecnologia / IA', 'Restaurante', 'Academia / Fitness', 'Imobiliária', 'Software B2B', 'Moda Feminina', 'Marketing Digital']
+
+const thumbs = {
+  'lp-advogado': 'https://images.unsplash.com/photo-1674826272758-e5c26d177cf2?w=800&q=80&auto=format&fit=crop',
+  'lp-dentista': 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80&auto=format&fit=crop',
+  'lp-tatuador': 'https://images.unsplash.com/photo-1661714220704-711551e73799?w=800&q=80&auto=format&fit=crop',
+  'site-tech-startup': 'https://images.unsplash.com/photo-1677442135136-760c813028c0?w=800&q=80&auto=format&fit=crop',
+  'lp-restaurante': 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80&auto=format&fit=crop',
+  'lp-academia': 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80&auto=format&fit=crop',
+  'site-imobiliaria': 'https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=800&q=80&auto=format&fit=crop',
+  'lp-saas': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop',
+  'lp-ecommerce-moda': 'https://images.unsplash.com/photo-1675186049419-d48f4b28fe7c?w=800&q=80&auto=format&fit=crop',
+  'site-agencia-marketing': 'https://images.unsplash.com/photo-1726804880693-8fcdd773ce80?w=800&q=80&auto=format&fit=crop',
+}
 
 const ProjectCard = ({ project, index }) => {
   const ref = useRef(null)
@@ -161,12 +165,16 @@ const ProjectCard = ({ project, index }) => {
     >
       {/* Preview */}
       <div className={`aspect-video bg-gradient-to-br ${project.bg} relative overflow-hidden flex items-center justify-center`}>
-        <div className="card-preview flex flex-col items-center gap-3">
-          <span className="text-6xl">{project.emoji}</span>
-          <div className="text-center">
-            <div className="text-white font-bold text-lg">{project.name}</div>
-            <div className="text-xs mt-1 font-medium" style={{ color: project.color }}>{project.segment}</div>
-          </div>
+        <img
+          src={thumbs[project.slug]}
+          alt={project.name}
+          loading="lazy"
+          className="card-preview absolute inset-0 w-full h-full object-cover transition-transform duration-700"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+        <div className="absolute bottom-4 left-5 right-5">
+          <div className="text-white font-bold text-lg leading-tight">{project.name}</div>
+          <div className="text-xs mt-1 font-medium" style={{ color: project.color }}>{project.segment}</div>
         </div>
         {/* Overlay on hover */}
         <div className="absolute inset-0 bg-black/60 opacity-0 hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-4">
@@ -382,14 +390,14 @@ export default function App() {
           <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="font-black text-4xl text-white mb-12">Tecnologias Utilizadas</motion.h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
             {[
-              { name: 'React 18', desc: 'UI Components', color: '#61dafb', emoji: '⚛️' },
-              { name: 'Vite', desc: 'Build Tool', color: '#646cff', emoji: '⚡' },
-              { name: 'Tailwind CSS', desc: 'Styling', color: '#38bdf8', emoji: '🎨' },
-              { name: 'Framer Motion', desc: 'Animações', color: '#ff0055', emoji: '🎭' },
-              { name: 'Node.js', desc: 'Backend', color: '#68a063', emoji: '🟢' },
-              { name: 'Express', desc: 'API REST', color: '#f5f5f5', emoji: '🚀' },
-              { name: 'Prisma', desc: 'ORM', color: '#2d3748', emoji: '🔷' },
-              { name: 'React Icons', desc: 'Ícones', color: '#e91e63', emoji: '🎯' },
+              { name: 'React 18', desc: 'UI Components', color: '#61dafb', icon: SiReact },
+              { name: 'Vite', desc: 'Build Tool', color: '#646cff', icon: SiVite },
+              { name: 'Tailwind CSS', desc: 'Styling', color: '#38bdf8', icon: SiTailwindcss },
+              { name: 'Framer Motion', desc: 'Animações', color: '#ff0055', icon: SiFramer },
+              { name: 'Node.js', desc: 'Backend', color: '#68a063', icon: SiNodedotjs },
+              { name: 'Express', desc: 'API REST', color: '#cbd5e1', icon: SiExpress },
+              { name: 'Prisma', desc: 'ORM', color: '#5eead4', icon: SiPrisma },
+              { name: 'Vercel', desc: 'Deploy', color: '#f5f5f5', icon: SiVercel },
             ].map((tech, i) => (
               <motion.div
                 key={i}
@@ -399,7 +407,7 @@ export default function App() {
                 transition={{ delay: i * 0.05 }}
                 className="bg-[#111] border border-[#1a1a1a] rounded-xl p-5 hover:border-[#333] transition-colors cursor-default"
               >
-                <div className="text-2xl mb-2">{tech.emoji}</div>
+                <tech.icon size={28} className="mb-3 mx-auto" style={{ color: tech.color }} />
                 <div className="font-bold text-white text-sm">{tech.name}</div>
                 <div className="text-gray-600 text-xs mt-0.5">{tech.desc}</div>
               </motion.div>
