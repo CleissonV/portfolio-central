@@ -18,6 +18,7 @@ export const projects: Project[] = [
   { id: 8, name: 'FluxCRM', slug: 'lp-saas', demo: 'https://lp-saas-ivory.vercel.app', type: 'SaaS', segment: 'Software B2B', desc: 'CRM SaaS moderno. Terminal animado, pipeline visual em tempo real, pricing table clean.', tags: ['React', 'Framer Motion', 'Tailwind'], color: '#6366f1' },
   { id: 9, name: 'LUMIÈRE', slug: 'lp-ecommerce-moda', demo: 'https://lp-ecommerce-moda.vercel.app', type: 'E-commerce', segment: 'Moda', desc: 'Boutique luxury. Editorial split layout, hover crossfade em produtos, blend cursor custom.', tags: ['React', 'Framer Motion', 'Tailwind'], color: '#cbb892' },
   { id: 10, name: 'ORBIT Agency', slug: 'site-agencia-marketing', demo: 'https://site-agencia-marketing-woad.vercel.app', type: 'Agência', segment: 'Marketing', desc: 'Agência digital. Cases em rows fullbleed alternados, serviços como lista expansível, acid lime.', tags: ['React', 'Framer Motion', 'Tailwind'], color: '#b8ff4a' },
+  { id: 11, name: 'TENGU 天狗', slug: 'site-game-tengu', demo: 'https://site-game-tengu.vercel.app', type: 'Game', segment: 'Concept Site', desc: 'Site de jogo souls-like de samurai. Partículas de brasa em Canvas API, parallax multicamada, 3 personagens, kanji decorativo.', tags: ['React', 'Canvas API', 'Framer Motion'], color: '#dc2626' },
 ]
 
 export const thumbs: Record<string, string> = {
@@ -31,6 +32,7 @@ export const thumbs: Record<string, string> = {
   'lp-saas': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop',
   'lp-ecommerce-moda': 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80&auto=format&fit=crop',
   'site-agencia-marketing': 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80&auto=format&fit=crop',
+  'site-game-tengu': 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80&auto=format&fit=crop',
 }
 
 export const stack: TechItem[] = [
@@ -53,10 +55,10 @@ export const typeTexts: string[] = [
   'Building premium web products.',
 ]
 
-export const typeFilters: string[] = ['Todos', 'Landing Page', 'Institucional', 'E-commerce', 'SaaS', 'Agência']
+export const typeFilters: string[] = ['Todos', 'Landing Page', 'Institucional', 'E-commerce', 'SaaS', 'Agência', 'Game']
 
 export const stats: Stat[] = [
-  { n: '10+', l: 'Sites entregues', c: '#00ff88' },
+  { n: '11+', l: 'Sites entregues', c: '#00ff88' },
   { n: '100%', l: 'React & Modern Stack', c: '#a855f7' },
   { n: '10', l: 'Tecnologias no arsenal', c: '#00d4ff' },
   { n: '∞', l: 'Atenção aos detalhes', c: '#00ff88' },
