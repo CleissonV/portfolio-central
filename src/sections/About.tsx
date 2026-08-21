@@ -1,90 +1,70 @@
-import { motion } from 'framer-motion'
-import { LuLinkedin, LuGithub } from 'react-icons/lu'
-import HudCorners from '../components/ui/HudCorners'
-import { stats } from '../constants/data'
+import { motion, useReducedMotion } from 'framer-motion'
+import { FaGithub, FaLinkedinIn } from 'react-icons/fa'
+import ArcaneCircle from '../components/ui/ArcaneCircle'
+import { useLanguage } from '../i18n/LanguageContext'
 
 export default function About() {
+  const reduceMotion = useReducedMotion()
+  const { t } = useLanguage()
+
   return (
-    <section id="sobre" className="py-28 border-t border-[#1a1a2e]">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-[#00ff88] text-[10px] font-mono uppercase tracking-[0.4em] mb-6"
-            >
-              Sobre
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="font-black text-4xl md:text-5xl leading-tight mb-8"
-            >
-              Full Stack<br />
-              <span className="text-[#00ff88]">Developer.</span>
-            </motion.h2>
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="space-y-4 text-[#444466] text-sm leading-relaxed"
-            >
-              <p>
-                Desenvolvedor Full Stack especializado em criar experiências web premium que combinam design sofisticado com código de alta qualidade. Construo com React, Node.js, Three.js e um stack moderno para entregar produtos digitais que realmente impressionam.
-              </p>
-              <p>
-                Foco em animações avançadas com Framer Motion, interfaces 3D com Three.js e landing pages com alta taxa de conversão. Cada projeto é construído com atenção obsessiva aos detalhes — da tipografia às microinterações.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="flex gap-4 mt-8"
-            >
-              <a
-                href="https://linkedin.com/in/cleisson-vilela"
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-2 px-5 py-2.5 border border-[#1a1a2e] text-[#444466] text-xs font-mono hover:border-[#00ff88]/40 hover:text-[#00ff88] transition-all"
-              >
-                <LuLinkedin size={13} /> LinkedIn
-              </a>
-              <a
-                href="https://github.com/CleissonV"
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-2 px-5 py-2.5 border border-[#1a1a2e] text-[#444466] text-xs font-mono hover:border-[#00ff88]/40 hover:text-[#00ff88] transition-all"
-              >
-                <LuGithub size={13} /> GitHub
-              </a>
-            </motion.div>
+    <section id="sobre" className="about section">
+      <ArcaneCircle className="magic-circle--about" duration={48} direction={-1} depth={34} />
+      <ArcaneCircle className="magic-circle--about-secondary magic-circle--faint" duration={62} depth={22} />
+      {!reduceMotion && (
+        <motion.div
+          className="about__shooting-star-trigger"
+          aria-hidden="true"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.3 }}
+        >
+          <motion.div
+            className="about__shooting-star"
+            variants={{
+              hidden: { x: '-18vw', y: 0, rotate: 4, opacity: 0 },
+              visible: {
+                x: ['-18vw', '18vw', '48vw', '82vw', '118vw'],
+                y: [0, '-35px', '20px', '150px', '430px'],
+                rotate: [4, 7, 12, 22, 38],
+                opacity: [0, 1, 1, 1, 0],
+              },
+            }}
+            transition={{
+              duration: 3.4,
+              delay: 0.12,
+              times: [0, 0.12, 0.42, 0.76, 1],
+              ease: [0.22, 0.74, 0.24, 1],
+            }}
+          >
+            <span />
+          </motion.div>
+        </motion.div>
+      )}
+      <div className="container about__grid">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="about__copy"
+        >
+          <span className="eyebrow">{t.about.eyebrow}</span>
+          <h2>{t.about.title[0]}<br />{t.about.title[1]}</h2>
+          {t.about.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+          <div className="about__actions">
+            <a className="button button--primary" href="https://linkedin.com/in/cleisson-vilela" target="_blank" rel="noreferrer"><FaLinkedinIn /> LinkedIn</a>
+            <a className="button button--outline" href="https://github.com/CleissonV" target="_blank" rel="noreferrer"><FaGithub /> GitHub</a>
           </div>
+        </motion.div>
 
-          {/* Stats grid */}
-          <div className="grid grid-cols-2 gap-px bg-[#1a1a2e]">
-            {stats.map((s, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.92 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="relative bg-[#080810] p-10"
-              >
-                <HudCorners color={s.c} />
-                <div className="font-black text-5xl mb-2 leading-none" style={{ color: s.c }}>{s.n}</div>
-                <div className="text-[#444466] text-[11px] font-mono">{s.l}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.94 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="about__portrait"
+        >
+          <img src="/assets/gif-creissu.gif" alt={t.about.portraitAlt} />
+        </motion.div>
       </div>
     </section>
   )

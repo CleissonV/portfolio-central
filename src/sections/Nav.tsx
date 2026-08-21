@@ -1,59 +1,93 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { LuGithub, LuMenu, LuX } from 'react-icons/lu'
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { FaGithub } from 'react-icons/fa'
+import { LuMenu, LuX } from 'react-icons/lu'
+import LanguageSwitcher from '../components/ui/LanguageSwitcher'
+import { useLanguage } from '../i18n/LanguageContext'
 
 export default function Nav() {
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const { t } = useLanguage()
+  const links = [
+    ['#servicos', t.nav.services],
+    ['#projetos', t.nav.projects],
+    ['#sobre', t.nav.about],
+    ['#stack', t.nav.stack],
+    ['#contato', t.nav.contact],
+  ]
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', fn)
-    return () => window.removeEventListener('scroll', fn)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 36)
+    }
+
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  return (
-    <nav className={`fixed w-full z-40 transition-all duration-300 ${scrolled ? 'bg-[#030305]/96 backdrop-blur-xl border-b border-[#1a1a2e]' : ''}`}>
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="font-mono font-black text-lg flex items-center gap-1">
-          <span className="text-[#00ff88]">&gt;</span>
-          <span className="text-[#c0c0d0]">CV</span>
-          <span className="text-[#a855f7]">.</span>
-        </div>
+  const closeAndNavigate = (href: string) => {
+    setOpen(false)
+    window.setTimeout(() => {
+      document.querySelector<HTMLElement>(href)?.scrollIntoView({ behavior: 'smooth' })
+    }, 220)
+  }
 
-        <div className="hidden md:flex items-center gap-8">
-          {[['#stack', 'Stack'], ['#projetos', 'Projetos'], ['#sobre', 'Sobre'], ['#contato', 'Contato']].map(([href, label]) => (
+  return (
+    <nav className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
+      <div className="container nav__inner">
+        <a href="#top" className="nav__brand" aria-label={t.nav.home}>
+          <img src="/assets/logo-clei-vilela-hero.svg" alt="Clei Vilela" />
+        </a>
+
+        <div className="nav__links">
+          {links.map(([href, label]) => (
             <a
               key={href}
               href={href}
-              className="text-[10px] font-mono text-[#444466] hover:text-[#00ff88] transition-colors uppercase tracking-[0.25em]"
             >
               {label}
             </a>
           ))}
-          <a href="https://github.com/CleissonV" target="_blank" rel="noreferrer" className="text-[#444466] hover:text-[#00ff88] transition-colors">
-            <LuGithub size={16} />
+          <a href="https://github.com/CleissonV" target="_blank" rel="noreferrer" aria-label="GitHub">
+            <FaGithub size={24} />
           </a>
+          <LanguageSwitcher />
         </div>
 
-        <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-[#444466] hover:text-[#00ff88] transition-colors">
-          {menuOpen ? <LuX size={18} /> : <LuMenu size={18} />}
-        </button>
+        <div className="nav__mobile-controls">
+          <LanguageSwitcher />
+          <button
+            className="nav__toggle"
+            onClick={() => setOpen(current => !current)}
+            aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+          >
+            {open ? <LuX /> : <LuMenu />}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
-        {menuOpen && (
+        {open && (
           <motion.div
+            id="mobile-navigation"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-[#1a1a2e] bg-[#030305] overflow-hidden"
+            className="nav__mobile"
           >
-            <div className="flex flex-col gap-5 p-6 font-mono text-sm">
-              {[['#stack', 'Stack'], ['#projetos', 'Projetos'], ['#sobre', 'Sobre'], ['#contato', 'Contato']].map(([href, label]) => (
-                <a key={href} href={href} onClick={() => setMenuOpen(false)} className="text-[#444466] hover:text-[#00ff88] transition-colors">{label}</a>
-              ))}
-            </div>
+            {links.map(([href, label]) => (
+              <a
+                key={href}
+                href={href}
+                onClick={() => closeAndNavigate(href)}
+              >
+                {label}
+              </a>
+            ))}
           </motion.div>
         )}
       </AnimatePresence>

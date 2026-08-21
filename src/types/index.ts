@@ -5,6 +5,8 @@ export interface Project {
   name: string
   slug: string
   demo: string
+  github?: string | null
+  origin?: 'client' | 'authorial' | 'concept'
   type: string
   segment: string
   desc: string

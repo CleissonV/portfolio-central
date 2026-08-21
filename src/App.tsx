@@ -1,34 +1,34 @@
-import { useScroll } from 'framer-motion'
-import { motion } from 'framer-motion'
 import Nav from './sections/Nav'
 import Hero from './sections/Hero'
-import Stack from './sections/Stack'
+import Services from './sections/Services'
 import Projects from './sections/Projects'
 import About from './sections/About'
+import Experience from './sections/Experience'
+import Stack from './sections/Stack'
 import Contact from './sections/Contact'
-import Footer from './sections/Footer'
+import ArcaneZone from './components/ui/ArcaneZone'
+import ServicePage from './pages/ServicePage'
+import { isServicePath } from './content/servicePages'
 
 export default function App() {
-  const { scrollYProgress } = useScroll()
+  const pathname = window.location.pathname
+
+  if (isServicePath(pathname)) return <ServicePage pathname={pathname} />
 
   return (
-    <div className="min-h-screen bg-[#030305] text-[#c0c0d0]">
-      {/* Scroll progress */}
-      <motion.div
-        className="fixed top-0 left-0 h-px z-50"
-        style={{
-          scaleX: scrollYProgress,
-          transformOrigin: '0%',
-          background: 'linear-gradient(90deg, #00ff88, #a855f7, #00d4ff)',
-        }}
-      />
+    <main className="site-shell">
       <Nav />
       <Hero />
-      <Stack />
-      <Projects />
-      <About />
+      <ArcaneZone>
+        <Services />
+      </ArcaneZone>
+      <ArcaneZone>
+        <Projects />
+        <About />
+        <Experience />
+        <Stack />
+      </ArcaneZone>
       <Contact />
-      <Footer />
-    </div>
+    </main>
   )
 }

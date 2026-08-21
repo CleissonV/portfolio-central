@@ -1,115 +1,161 @@
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { LuArrowRight, LuChevronDown } from 'react-icons/lu'
-import { FaWhatsapp } from 'react-icons/fa'
-import ThreeCanvas from '../components/ui/ThreeCanvas'
-import { useTypewriter } from '../hooks/useTypewriter'
-import { typeTexts } from '../constants/data'
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
+import { LuExternalLink } from 'react-icons/lu'
+import { getWhatsappUrl } from '../constants/contact'
+import { useLanguage } from '../i18n/LanguageContext'
+import { trackEvent } from '../utils/tracking'
 
 export default function Hero() {
-  const typed = useTypewriter(typeTexts)
+  const [loreOpen, setLoreOpen] = useState(false)
+  const loreRef = useRef<HTMLDivElement>(null)
+  const { language, t } = useLanguage()
+  const whatsappUrl = getWhatsappUrl(language)
+
+  useEffect(() => {
+    if (!loreOpen) return
+
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      if (!loreRef.current?.contains(event.target as Node)) setLoreOpen(false)
+    }
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setLoreOpen(false)
+    }
+
+    document.addEventListener('pointerdown', closeOnOutsideClick)
+    document.addEventListener('keydown', closeOnEscape)
+
+    return () => {
+      document.removeEventListener('pointerdown', closeOnOutsideClick)
+      document.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [loreOpen])
 
   return (
-    <section className="relative h-screen flex flex-col justify-center overflow-hidden">
-      <ThreeCanvas />
+    <section id="top" className="hero">
+      <img className="hero__bg" src="/assets/hero-layer-background-with-crystals.png" alt="" decoding="async" />
+      <img className="hero__circles" src="/assets/hero-circles.png" alt="" aria-hidden="true" decoding="async" />
+      <img className="hero__layer hero__layer--cape" src="/assets/hero-layer-cape.png" alt="" aria-hidden="true" decoding="async" />
+      <img className="hero__layer hero__layer--hair" src="/assets/hero-layer-hair.png" alt="" aria-hidden="true" decoding="async" />
+      <img className="hero__layer hero__layer--body" src="/assets/hero-layer-body.png" alt="" aria-hidden="true" decoding="async" />
+      <img className="hero__layer hero__layer--sword-glow" src="/assets/hero-layer-sword.png" alt="" aria-hidden="true" decoding="async" />
+      <img className="hero__layer hero__layer--sword" src="/assets/hero-layer-sword.png" alt="" aria-hidden="true" decoding="async" />
+      <div className="hero__twinkles" aria-hidden="true">
+        {Array.from({ length: 28 }, (_, index) => (
+          <i
+            key={index}
+            className="hero__twinkle"
+            style={{
+              left: index === 9 ? '61%' : index === 16 ? '64%' : index === 21 ? '88%' : `${8 + ((index * 37) % 88)}%`,
+              top: `${5 + ((index * 23) % 58)}%`,
+              animationDelay: `-${(index % 8) * .43}s`,
+              animationDuration: `${2.1 + (index % 5) * .38}s`,
+              background: index % 4 === 0 ? '#55cfff' : '#fff',
+            }}
+          />
+        ))}
+      </div>
+      <div className="hero__veil" />
 
-      {/* Scanline texture */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,255,136,0.010) 3px, rgba(0,255,136,0.010) 4px)',
-          zIndex: 1,
-        }}
-      />
-      {/* Vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 80% 80% at 50% 50%, transparent 20%, rgba(3,3,5,0.85) 100%)', zIndex: 1 }}
-      />
-
-      <div className="relative max-w-7xl mx-auto px-6 w-full" style={{ zIndex: 2 }}>
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex items-center gap-2 mb-6"
-        >
-          <div className="w-1.5 h-1.5 bg-[#00ff88] rounded-full animate-pulse" />
-          <span className="text-[#00ff88] text-[10px] font-mono uppercase tracking-[0.45em]">Sistema Online · Disponível para Projetos</span>
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, delay: 0.15 }}
-          className="font-black leading-none mb-8"
-        >
-          <span className="block text-[14vw] md:text-[9.5vw] lg:text-[112px] xl:text-[136px] text-[#c0c0d0] leading-[0.95]">
-            CLEISSON
-          </span>
-          <span
-            className="block text-[14vw] md:text-[9.5vw] lg:text-[112px] xl:text-[136px] leading-[0.95]"
-            style={{ WebkitTextStroke: '2px #00ff88', color: 'transparent' }}
+      <aside
+        className={`hero__lore ${loreOpen ? 'hero__lore--open' : ''}`}
+        aria-label={t.hero.loreAria}
+      >
+        <div ref={loreRef} className="hero__lore-content">
+          <div className="hero__lore-card" id="hero-lore-card">
+            <span>{t.hero.loreEyebrow}</span>
+            <strong>{t.hero.loreTitle}</strong>
+            <p>
+              {t.hero.loreStarWarsBefore}<em>Star Wars</em>{t.hero.loreStarWarsAfter}
+              <em>The Witcher</em>{t.hero.loreWitcherAfter}
+              <em>The Midnight Gospel</em>{t.hero.loreMidnightAfter}
+            </p>
+            <a
+              href="https://www.lucasfilm.com/news/greg-hildebrandt/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <LuExternalLink /> {t.hero.loreLink}
+            </a>
+          </div>
+          <button
+            className="hero__lore-trigger"
+            type="button"
+            aria-expanded={loreOpen}
+            aria-controls="hero-lore-card"
+            onClick={() => setLoreOpen(open => !open)}
           >
-            VILELA
+            <span aria-hidden="true">✦</span> {t.hero.origin}
+          </button>
+          <span className="hero__lore-hint">
+            {loreOpen ? t.hero.closeHint : t.hero.openHint}
           </span>
-        </motion.h1>
+        </div>
+      </aside>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.55 }}
-          className="flex items-center gap-2 mb-10"
-        >
-          <span className="text-[#a855f7] font-mono text-base">&gt;_</span>
-          <span className="text-[#c0c0d0] font-mono text-base md:text-xl min-w-[200px] md:min-w-[340px]">{typed}</span>
-          <span className="inline-block w-0.5 h-5 bg-[#00ff88] cursor-blink" />
-        </motion.div>
+      <a
+        className="hero__art-credit"
+        href="https://www.instagram.com/jothanan_/"
+        target="_blank"
+        rel="noreferrer"
+        aria-label={t.hero.creditAria}
+      >
+        <FaInstagram aria-hidden="true" />
+        <span>{t.hero.creditBy}</span>
+        <strong>Jonathan Teixeira da Silva · @jothanan_</strong>
+      </a>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
+      <div className="container hero__content">
+        <motion.span
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          className="flex flex-col sm:flex-row gap-4"
+          transition={{ duration: 0.55 }}
+          className="hero__role"
+        >
+          {t.hero.role}
+        </motion.span>
+        <h1 className="hero__title">
+          <span className="sr-only">Clei Vilela — Desenvolvedor de Software e Soluções Digitais</span>
+          <motion.img
+            initial={{ opacity: 0, x: -28 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.12 }}
+            className="hero__name"
+            src="/assets/hero-name.svg"
+            alt=""
+            aria-hidden="true"
+          />
+        </h1>
+        <motion.p
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.34 }}
+        className="hero__tagline"
+        >
+          {t.hero.tagline.map((line, index) => (
+            <span key={line}>{line}{index < t.hero.tagline.length - 1 ? <br /> : null}</span>
+          ))}
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.48 }}
+          className="hero__actions"
         >
           <a
-            href="https://wa.me/5511945678901"
+            className="button button--primary"
+            href={whatsappUrl}
             target="_blank"
             rel="noreferrer"
-            className="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-[#00ff88] text-[#030305] font-mono font-black text-sm hover:bg-[#1affaa] transition-colors"
+            onClick={() => trackEvent('contact_click', { service: 'portfolio', location: 'hero' })}
           >
-            <FaWhatsapp size={15} />
-            Solicitar Orçamento
-            <LuArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            <FaWhatsapp /> {t.hero.talk}
           </a>
-          <a
-            href="#projetos"
-            className="inline-flex items-center gap-2 px-7 py-3.5 border border-[#1a1a2e] text-[#444466] font-mono text-sm hover:border-[#00ff88]/40 hover:text-[#00ff88] transition-all"
-          >
-            Ver Projetos <LuChevronDown size={14} />
+          <a className="button button--outline" href="#projetos">
+            <LuExternalLink /> {t.hero.seeProjects}
           </a>
         </motion.div>
       </div>
-
-      {/* HUD bottom status bar */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-0 left-0 right-0 border-t border-[#1a1a2e]/60 px-6 py-3 flex justify-between items-center"
-        style={{ zIndex: 2, background: 'rgba(3,3,5,0.6)', backdropFilter: 'blur(8px)' }}
-      >
-        {[
-          ['PROJ', '10 SITES'],
-          ['STACK', '10 TECH'],
-          ['LOC', 'BRASIL'],
-          ['STATUS', 'FREELANCE'],
-        ].map(([label, value]) => (
-          <div key={label} className="flex items-center gap-2">
-            <span className="text-[#1a1a2e] font-mono text-[9px] uppercase tracking-widest hidden sm:block">{label}:</span>
-            <span className="text-[#00ff88] font-mono text-[10px] font-bold tracking-widest">{value}</span>
-          </div>
-        ))}
-      </motion.div>
     </section>
   )
 }
