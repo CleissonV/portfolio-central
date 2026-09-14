@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { FaChartLine, FaCheck, FaCodeBranch, FaCogs, FaDatabase, FaLaptopCode, FaLock, FaWhatsapp } from 'react-icons/fa'
 import { LuArrowDown, LuArrowRight, LuExternalLink } from 'react-icons/lu'
 import CommercialNav from '../components/ui/CommercialNav'
+import CommercialVideoHero from '../components/ui/CommercialVideoHero'
 import EcommerceHeroCarousel from '../components/ui/EcommerceHeroCarousel'
 import LandingPagesHeroCarousel from '../components/ui/LandingPagesHeroCarousel'
 import SystemsHeroVisual from '../components/ui/SystemsHeroVisual'
@@ -50,7 +51,14 @@ export default function ServicePage({ pathname }: { pathname: string }) {
     <main className={`site-shell commercial-page commercial-page--${page.slug}`}>
       <CommercialNav />
 
-      <section className="commercial-hero">
+      <CommercialVideoHero
+        language={language}
+        service={page.slug}
+        whatsappUrl={whatsappUrl}
+        primaryCta={page.primaryCta}
+      />
+
+      <section id="servico-principal" className="commercial-hero commercial-hero--secondary">
         <div className="commercial-hero__glow" aria-hidden="true" />
         <div className="commercial-hero__stars" aria-hidden="true" />
         <div className="container commercial-hero__grid">
