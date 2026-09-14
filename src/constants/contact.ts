@@ -6,5 +6,5 @@ const whatsappMessages: Record<Language, string> = {
 }
 
 export function getWhatsappUrl(language: Language) {
-  return `https://wa.me/5514998728303?text=${encodeURIComponent(whatsappMessages[language])}`
+  return `https://wa.me/5514998810183?text=${encodeURIComponent(whatsappMessages[language])}`
 }

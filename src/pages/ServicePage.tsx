@@ -41,7 +41,7 @@ export default function ServicePage({ pathname }: { pathname: string }) {
 
   if (!page) return null
 
-  const whatsappUrl = `https://wa.me/5514998728303?text=${encodeURIComponent(page.whatsappMessage)}`
+  const whatsappUrl = `https://wa.me/5514998810183?text=${encodeURIComponent(page.whatsappMessage)}`
   const serviceLinks = listServicePages(language)
   const labels = language === 'pt'
     ? { more: 'Outras soluções', explore: 'Explore o ecossistema completo', card: 'Conhecer solução', product: 'produto', evolution: 'pronto para evoluir', proof: 'Diferenciais', image: 'Exemplo visual de', openProject: 'Ver projeto' }
